@@ -1,0 +1,51 @@
+.right___sideLogin {
+  background-image: url(../../assets/images/loginRec.png);
+  height: 750px;
+  position: fixed;
+  top: 0;
+  right: 0;
+}
+.login__logo {
+  width: 2%;
+  height: 70%;
+  transform: translate(-7px, -8%);
+}
+
+.logo___div {
+  transform: translateX(-58px);
+}
+
+.eyeBtn {
+  position: absolute;
+  left: 76%;
+  top: 53.5%;
+  border: none !important;
+  color: black !important;
+}
+.left__side {
+  transform: translatey(10%);
+}
+.login___row {
+  text-align: justify;
+}
+.right__imglogin {
+  position: absolute;
+  right: 34%;
+  top: 14%;
+}
+.vector___1 {
+  position: absolute;
+  top: 7%;
+  left: 12%;
+}
+.vector___2 {
+  position: absolute;
+  top: 3%;
+  left: 85%;
+}
+.vector___3 {
+  position: absolute;
+  top: 91%;
+  left: 57%;
+  z-index: -1;
+}

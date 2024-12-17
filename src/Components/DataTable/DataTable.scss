@@ -1,0 +1,31 @@
+// .add__ClientBtn {
+//   position: absolute;
+//   right: 2%;
+//   top: 44%;
+//   z-index: 10;
+// }
+.table,.client__tableheader{
+  width: 1200px ;
+  // transform: translateX(-10px);
+}
+.client__searchInput:focus {
+  border: none !important;
+}
+.client__searchInput:focus{
+  outline: none !important;
+}
+.client__th{
+  color: var(--main-color) !important;
+  text-align: left;
+  font-size: 20px;
+  border-bottom: 100%;
+}
+.client__td{
+  text-align: left;
+  color: black;
+  font-weight: 500;
+  border-bottom: 100%;
+}
+.form-check-input:checked {
+  background-color: var(--main-color) !important;
+}

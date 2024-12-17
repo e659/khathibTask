@@ -1,0 +1,66 @@
+.add__ClientBtn{
+  background-color: var(--main-color) !important;
+}
+.addClient___model {
+  .modal-content {
+    width: 791px !important;
+    right: 28%;
+    padding: 20px;
+    p {
+      color: rgba(0, 6, 29, 1);
+      font-weight: 700;
+      font-size: 18px;
+    }
+  }
+  .modal-header {
+    border-bottom: none !important;
+  }
+  .modal-footer {
+    border-top: none !important;
+    .addClient____delBtn {
+      border: 0.5px solid rgba(204, 205, 210, 1);
+      background-color: transparent;
+      color: black;
+    }
+  }
+  input{
+    background-color: rgb(164, 188, 213,.1);
+    padding: 10px;
+  }
+  input:focus{
+    background-color: rgb(164, 188, 213,.1);
+    padding: 10px;
+  }
+  .form-label{
+    color: rgba(128, 131, 142, 1);
+    font-weight: 600;
+  }
+}
+
+/* Custom file input label styles */
+.custom-file-label {
+  display: inline-block;
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  text-align: center;
+  transform: translate(90%,10px);
+  height: 50px;
+}
+
+.custom-file-label:hover {
+  background-color: #0056b3;
+}
+
+/* Optionally, add styles for the file name */
+.custom-file-label.file-selected {
+  background-color: #28a745;
+}
+// .blog_custom_file{
+//   width: 200px;
+//   height: 200px;
+//   background-color: #0056b3;
+// }

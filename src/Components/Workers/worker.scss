@@ -1,0 +1,55 @@
+.worker___header input {
+  background-color: rgba(128, 131, 142, 0.1) !important;
+  width: 300px;
+}
+.worker___header input::placeholder {
+  color: rgba(204, 205, 210, 1);
+  font-size: 16px;
+  font-weight: 700;
+}
+// .worker___header svg {
+//   position: absolute;
+//   left: 38px;
+//   top: 21%;
+// }
+
+.woker__name {
+  color: rgba(0, 6, 29, 1);
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 0;
+  text-align: left;
+}
+.worker__title {
+  color: rgb(70 86 104);
+  font-weight: 500;
+  font-size: 16px;
+  text-align: left;
+}
+.worker_desc {
+  font-size: 16px;
+  color: rgb(70 86 104);
+ font-weight: 500;
+ text-align: left;
+}
+.worker___container {
+  border: 1px solid rgba(70, 147, 214, 0.7);
+  background-color: white;
+  padding: 10px;
+  border-radius: 10px;
+  width: 320px;
+  height: 180px;
+  svg {
+    position: absolute;
+    left: 90%;
+  }
+}
+.worker___container img{
+    width: 80px;
+    height: 80px;
+    border-radius: 50px;
+    border: 1px solid rgb(224 224 224 );
+}
+.worker_row{
+  border-radius: 10px;
+}
