@@ -28,7 +28,7 @@ export default function Blog() {
           {!menuCollapse ? (
             <div
               className="col-md-10 right__content"
-              style={{ transform: "translate(-8%,-1%)" }}
+              style={{ transform: "translate(-8%,-.9%)" }}
             >
               <header>
                 <HeaderBox

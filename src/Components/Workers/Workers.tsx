@@ -27,7 +27,7 @@ export default function Workers() {
           {!menuCollapse ? (
             <div
               className="col-md-10 right__content"
-              style={{ transform: "translate(-8%,-3%)" }}
+              style={{ transform: "translate(-8%,-2.5%)" }}
             >
               <header>
                 <HeaderBox
@@ -47,7 +47,7 @@ export default function Workers() {
           ) : (
             <div
               className="col-md-11 right__content"
-              style={{ transform: "translate(-2%,-9%)" }}
+              style={{ transform: "translate(-2%,-8%)" }}
             >
               <header>
                 <HeaderBox

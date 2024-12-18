@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { MdDeleteOutline } from "react-icons/md";
 import { FaRegEdit } from "react-icons/fa";
@@ -15,26 +15,31 @@ import { BASEURL } from "../../../constans/index.js";
 import { BsPerson } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { clientsContext } from "../Context/ClientsContext.jsx";
 export default function DropDown({
   Clients,
   handleRowClick,
   selectedRow,
   setSelectedRow,
 }) {
+  const { handleFileChange } = useContext(clientsContext);
+  const { imagePreview } = useContext(clientsContext);
+  const { fileName } = useContext(clientsContext);
+  const { setImagePreview } = useContext(clientsContext);
   const navigate = useNavigate();
   // console.log("clients", Clients);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   // change fileStyle
-  const [fileName, setFileName] = useState("");
-  const [imageFile, setImageFile] = useState(null);
-  const [previewUrl, setPreviewUrl] = useState(null); // To store the preview image
+  // const [fileName, setFileName] = useState("");
+  // const [imageFile, setImageFile] = useState(null);
+  // const [previewUrl, setPreviewUrl] = useState(null);
   // Set the initial state for the selected radio button
   const [selectedOption, setSelectedOption] = useState("option2");
-  const [selectedImage, setSelectedImage] = useState("");
-  const [image, setImage] = useState(null); // To store the selected image file
-  const [imageDeleted, setImageDeleted] = useState(false);
+  // const [selectedImage, setSelectedImage] = useState("");
+  // const [image, setImage] = useState(null);
+  // const [imageDeleted, setImageDeleted] = useState(false);
   // Handle change when a radio button is selected
   const handleRadioChange = (event) => {
     setSelectedOption(event.target.value);
@@ -62,38 +67,37 @@ export default function DropDown({
   };
 
   // Handle selecting a row to edit (this is called from the Parent)
-  const handleRowEdit = (row) => {
-    handleRowClick(row); // Call the parent onEdit function with the selected row data
-    Formik.setValues({
-      fristName: row.first_name,
-      lastName: row.last_name,
-      email: row.email,
-    });
+  const handleRowEdit = (selectedRow) => {
+    handleRowClick(selectedRow); // Call the parent onEdit function with the selected row data
+    // Formik.setValues({
+    //   fristName: row.first_name,
+    //   lastName: row.last_name,
+    //   email: row.email,
+    // });
   };
   // Handle the file input change
-  const handleFileChange = (event, setFieldValue) => {
-    const file = event.target.files[0];
+  // const handleFileChange = (event, setFieldValue) => {
+  //   const file = event.target.files[0];
 
-    if (file) {
-      const fileType = file.type.split("/")[0]; // Check if file is an image
-      if (fileType !== "image") {
-        alert("Please upload a valid image file.");
-        return;
-      }
+  //   if (file) {
+  //     const fileType = file.type.split("/")[0];
+  //     if (fileType !== "image") {
+  //       alert("Please upload a valid image file.");
+  //       return;
+  //     }
 
-      setFileName(file.name); // Update file name for display
-      setImageFile(file); // Set the image file
-      setFieldValue("image", file); // Set file in Formik's state
-      setSelectedImage(URL.createObjectURL(file)); // Preview the image
-      // setImageDeleted(false); // Reset the image deleted flag
-      // Generate preview for image
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreviewUrl(reader.result); // Set the preview URL once loaded
-      };
-      reader.readAsDataURL(file); // Read the image file as a data URL
-    }
-  };
+  //     setFileName(file.name);
+  //     setImageFile(file);
+  //     setFieldValue("image", file);
+  //     setSelectedImage(URL.createObjectURL(file));
+
+  //     const reader = new FileReader();
+  //     reader.onloadend = () => {
+  //       setPreviewUrl(reader.result);
+  //     };
+  //     reader.readAsDataURL(file);
+  //   }
+  // };
   // Handle delete image
   // const handleDeleteImage = () => {
   //   setFileName(null); // Clear the selected file
@@ -128,7 +132,7 @@ export default function DropDown({
     formData.append("Veteran", values.veteran);
 
     const response = await axios
-      .patch(`${BASEURL}/client/update_client/${values.id}`, formData, {
+      .patch(`${BASEURL}/client/update_client/${selectedRow.id}`, formData, {
         headers: {
           authorization: localStorage.getItem("usertoken"),
           "Content-Type": "multipart/form-data",
@@ -151,6 +155,9 @@ export default function DropDown({
     // console.log("selectedrow",selectedRow.id);
     navigate(`/Clients/${selectedRow.id}`);
   };
+  const deleteImage = () => {
+    console.log("null");
+  };
   return (
     <div>
       <div className="dropdown Client__dropdown">
@@ -170,7 +177,7 @@ export default function DropDown({
             className="ms-1"
             onClick={() => {
               handleShow();
-              handleRowEdit(row);
+              handleRowEdit(selectedRow);
             }}
           >
             <a className="dropdown-item fw-bold" href="#">
@@ -191,10 +198,10 @@ export default function DropDown({
                 state: selectedRow.state || "",
                 zipcode: selectedRow.zip_code || "",
                 annualIncome: selectedRow.annual_income || "",
-                disabilityYear: selectedRow.disability_year||"",
-                birthofdate:selectedRow.birth_date||"",
-                disabled:selectedRow.disability||"",
-                veteran:selectedRow.Veteran||""
+                disabilityYear: selectedRow.disability_year || "",
+                birthofdate: selectedRow.birth_date || "",
+                disabled: selectedRow.disability || "",
+                veteran: selectedRow.Veteran || "",
               }} // Populate the form with selected row data
               enableReinitialize
               onSubmit={handleSubmit}
@@ -220,7 +227,7 @@ export default function DropDown({
                       <Modal.Title
                         style={{ fontWeight: "700", fontSize: "18px" }}
                       >
-                        Add New Client
+                        Edit Client
                       </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
@@ -229,26 +236,86 @@ export default function DropDown({
                           Profile Picture Upload
                         </p>
                         <div className="d-flex">
-                          <div>
+                          {/* <div>
                             <img
                               src={selectedRow.image}
                               alt="image"
                               className="rounded rounded-circle"
                               style={{ width: "50px", height: "50px" }}
                             />
-                          </div>
+                          </div> */}
+                          {imagePreview ? (
+                            <div>
+                              <img
+                                src={imagePreview}
+                                alt="image"
+                                className="rounded rounded-circle"
+                                style={{ width: "50px", height: "50px" }}
+                              />
+                            </div>
+                          ) : (
+                            <div>
+                              <img
+                                src={selectedRow.image}
+                                alt="image"
+                                className="rounded rounded-circle"
+                                style={{ width: "50px", height: "50px" }}
+                              />
+                            </div>
+                          )}
                           <div>
                             <button
                               className="btn "
                               style={{
                                 border: "1px solid gray",
                                 transform: "translate(130%,-1px)",
-                                padding: "10px",
+                                padding: "13px",
                               }}
                             >
                               Delete
                             </button>
-                            <input
+                            {selectedRow.image ? (
+                              <>
+                                <input
+                                  type="file"
+                                  id="file-input"
+                                  name="image"
+                                  accept="image/*" // Restrict to image files only
+                                  style={{ display: "none" }}
+                                  onChange={(e) =>
+                                    handleFileChange(e, setFieldValue)
+                                  }
+                                />
+                                <label
+                                  htmlFor="file-input"
+                                  className="custom-file-label"
+                                  style={{ transform: "translate(75%,-1px)" }}
+                                >
+                                  Change Photo
+                                </label>
+                              </>
+                            ) : (
+                              <>
+                                <input
+                                  type="file"
+                                  id="file-input"
+                                  name="image"
+                                  accept="image/*" // Restrict to image files only
+                                  style={{ display: "none" }}
+                                  onChange={(e) =>
+                                    handleFileChange(e, setFieldValue)
+                                  }
+                                />
+                                <label
+                                  htmlFor="file-input"
+                                  className="custom-file-label"
+                                  style={{ transform: "translate(75%,-1px)" }}
+                                >
+                                  Upload Photo
+                                </label>
+                              </>
+                            )}
+                            {/* <input
                               type="file"
                               id="file-input"
                               name="image"
@@ -259,11 +326,12 @@ export default function DropDown({
                               }
                             />
                             <label
+                              style={{ transform: "translate(75%,-1px)" }}
                               htmlFor="file-input"
                               className="custom-file-label"
                             >
                               {fileName ? fileName : "Upload Photo"}
-                            </label>
+                            </label> */}
                           </div>
                         </div>
 

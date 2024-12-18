@@ -20,7 +20,7 @@ export default function HeaderBox({
       {menuCollapse ? (
         <div className=" d-flex justify-content-between  headerbox" style={{width:"1370px"}}>
           <div>
-            <p className="fw-bold fs-4 ms-2">Clients</p>
+            <p className="fw-bold fs-4 ms-2">{pathname[1]}</p>
           </div>
 
           {userData ? (

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "../Sidebar/Sidebar";
 import HeaderBox from "../HeaderBox/HeaderBox";
-import EmployeeAnalaysis from "./EmployeeAnalaysis";
-import EmployeeDataTable from "./EmployeeDataTable";
-export default function Employee() {
+import ContactAnalysis from "./ContactAnalysis";
+import ContactData from "./ContactData";
+export default function Contact() {
   const [menuCollapse, setMenuCollapse] = useState(false);
   const menuIconClick = () => {
     menuCollapse ? setMenuCollapse(false) : setMenuCollapse(true);
@@ -28,7 +28,7 @@ export default function Employee() {
           {!menuCollapse ? (
             <div
               className="col-md-10 right__content"
-              style={{ transform: "translate(-8%,-16px)" }}
+              style={{ transform: "translate(-8%,-1.3%)" }}
             >
               <header>
                 <HeaderBox
@@ -38,13 +38,13 @@ export default function Employee() {
                   menuToggle={menuToggle}
                 />
               </header>
-              <EmployeeAnalaysis
+              <ContactAnalysis
                 menuCollapse={menuCollapse}
                 menuIconClick={menuIconClick}
                 handleToggleSidebar={handleToggleSidebar}
                 menuToggle={menuToggle}
               />
-              <EmployeeDataTable
+              <ContactData
                 menuCollapse={menuCollapse}
                 menuIconClick={menuIconClick}
                 handleToggleSidebar={handleToggleSidebar}
@@ -54,7 +54,7 @@ export default function Employee() {
           ) : (
             <div
               className="col-md-11 right__content"
-              style={{ transform: "translate(-2%,-4.5%)" }}
+              style={{ transform: "translate(-2%,-4.3%)" }}
             >
               <header>
                 <HeaderBox
@@ -64,13 +64,13 @@ export default function Employee() {
                   menuToggle={menuToggle}
                 />
               </header>
-              <EmployeeAnalaysis
+              <ContactAnalysis
                 menuCollapse={menuCollapse}
                 menuIconClick={menuIconClick}
                 handleToggleSidebar={handleToggleSidebar}
                 menuToggle={menuToggle}
               />
-               <EmployeeDataTable
+              <ContactData
                 menuCollapse={menuCollapse}
                 menuIconClick={menuIconClick}
                 handleToggleSidebar={handleToggleSidebar}

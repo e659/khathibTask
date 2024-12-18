@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import { Formik, Field } from "formik";
 import * as Yup from "yup";
@@ -8,49 +8,25 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import { BASEURL } from "../../../constans/index.js";
-
+import { clientsContext } from "../Context/ClientsContext.jsx";
 export default function DropDown({
   Blogs,
   handleCardClick,
   selectedCard,
   setSelectedCard,
 }) {
+  const { handleFileChange } = useContext(clientsContext);
+  const { imagePreview } = useContext(clientsContext);
+  const { fileName } = useContext(clientsContext);
+  const { setImagePreview } = useContext(clientsContext);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  // change fileStyle
-  const [fileName, setFileName] = useState("");
-  const [imageFile, setImageFile] = useState(null);
-  const [previewUrl, setPreviewUrl] = useState(null); // To store the preview image
+
   // Set the initial state for the selected radio button
   const [selectedOption, setSelectedOption] = useState("option2");
-  const [selectedImage, setSelectedImage] = useState("");
-  const [image, setImage] = useState(null); // To store the selected image file
-  const [imageDeleted, setImageDeleted] = useState(false);
-  // Handle the file input change
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
 
-    if (file) {
-      const fileType = file.type.split("/")[0]; // Check if file is an image
-      if (fileType !== "image") {
-        alert("Please upload a valid image file.");
-        return;
-      }
 
-      setFileName(file.name); // Update file name for display
-      setImageFile(file); // Set the image file
-      setFieldValue("image", file); // Set file in Formik's state
-      setSelectedImage(URL.createObjectURL(file)); // Preview the image
-      // setImageDeleted(false); // Reset the image deleted flag
-      // Generate preview for image
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreviewUrl(reader.result); // Set the preview URL once loaded
-      };
-      reader.readAsDataURL(file); // Read the image file as a data URL
-    }
-  };
   // Handle selecting a row to edit (this is called from the Parent)
   const handleCardEdit = (selectedCard) => {
     handleCardClick(selectedCard);
@@ -86,13 +62,8 @@ export default function DropDown({
         console.log(err);
       });
     console.log("res", response);
-
-    // handel error if request faild
-    // .catch((err) => {
-    //   console.log(err);
-    // });
   };
-
+  console.log(selectedCard);
   return (
     <div className="blog__dropdownContainer">
       <HiOutlineDotsVertical
@@ -122,11 +93,9 @@ export default function DropDown({
         {selectedCard ? (
           <Formik
             initialValues={{
-              image: selectedCard.image || "",
               title: selectedCard.title || "",
               short_description: selectedCard.short_description || "",
               description: selectedCard.description || "",
-             
             }}
             // initialValues={selectedRow} // Populate the form with selected row data
             enableReinitialize
@@ -162,42 +131,104 @@ export default function DropDown({
                         Profile Picture Upload
                       </p>
                       <div className="d-flex">
-                        <div>
-                          <img
-                            src={selectedCard.image}
-                            alt="image"
-                            className="rounded rounded-circle"
-                            style={{ width: "50px", height: "50px" }}
-                          />
+                          {/* <div>
+                            <img
+                              src={selectedRow.image}
+                              alt="image"
+                              className="rounded rounded-circle"
+                              style={{ width: "50px", height: "50px" }}
+                            />
+                          </div> */}
+                          {imagePreview ? (
+                            <div>
+                              <img
+                                src={imagePreview}
+                                alt="image"
+                                className="rounded rounded-circle"
+                                style={{ width: "50px", height: "50px" }}
+                              />
+                            </div>
+                          ) : (
+                            <div>
+                              <img
+                                src={selectedCard.image}
+                                alt="image"
+                                className="rounded rounded-circle"
+                                style={{ width: "50px", height: "50px" }}
+                              />
+                            </div>
+                          )}
+                          <div>
+                            <button
+                              className="btn "
+                              style={{
+                                border: "1px solid gray",
+                                transform: "translate(130%,-1px)",
+                                padding: "13px",
+                              }}
+                            >
+                              Delete
+                            </button>
+                            {selectedCard.image ? (
+                              <>
+                                <input
+                                  type="file"
+                                  id="file-input"
+                                  name="image"
+                                  accept="image/*" // Restrict to image files only
+                                  style={{ display: "none" }}
+                                  onChange={(e) =>
+                                    handleFileChange(e, setFieldValue)
+                                  }
+                                />
+                                <label
+                                  htmlFor="file-input"
+                                  className="custom-file-label"
+                                  style={{ transform: "translate(75%,-1px)" }}
+                                >
+                                  Change Photo
+                                </label>
+                              </>
+                            ) : (
+                              <>
+                                <input
+                                  type="file"
+                                  id="file-input"
+                                  name="image"
+                                  accept="image/*" // Restrict to image files only
+                                  style={{ display: "none" }}
+                                  onChange={(e) =>
+                                    handleFileChange(e, setFieldValue)
+                                  }
+                                />
+                                <label
+                                  htmlFor="file-input"
+                                  className="custom-file-label"
+                                  style={{ transform: "translate(75%,-1px)" }}
+                                >
+                                  Upload Photo
+                                </label>
+                              </>
+                            )}
+                            {/* <input
+                              type="file"
+                              id="file-input"
+                              name="image"
+                              accept="image/*" // Restrict to image files only
+                              style={{ display: "none" }}
+                              onChange={(e) =>
+                                handleFileChange(e, setFieldValue)
+                              }
+                            />
+                            <label
+                              style={{ transform: "translate(75%,-1px)" }}
+                              htmlFor="file-input"
+                              className="custom-file-label"
+                            >
+                              {fileName ? fileName : "Upload Photo"}
+                            </label> */}
+                          </div>
                         </div>
-                        <div>
-                          <button
-                            className="btn "
-                            style={{
-                              border: "1px solid gray",
-                              transform: "translate(130%,-1px)",
-                              padding: "10px",
-                            }}
-                          >
-                            Delete
-                          </button>
-                          <input
-                            type="file"
-                            id="file-input"
-                            name="image"
-                            accept="image/*" // Restrict to image files only
-                            style={{ display: "none" }}
-                            onChange={(e) => handleFileChange(e)}
-                          />
-                          <label
-                            htmlFor="file-input"
-                            className="custom-file-label"
-                          >
-                            {fileName ? fileName : "Upload Photo"}
-                          </label>
-                        </div>
-                      </div>
-
                       <div className="col-md-12">
                         <label htmlFor="inputtittle" className="form-label">
                           Title
@@ -272,9 +303,7 @@ export default function DropDown({
         )}
 
         <li>
-          <a className="dropdown-item fw-bold" href="#" style={{
-            color:"red"
-          }}>
+          <a className="dropdown-item fw-bold" href="#">
             {/* <MdDeleteOutline size={25} /> */}
             Delete
           </a>

@@ -4,14 +4,7 @@ import HeaderBox from "../HeaderBox/HeaderBox";
 import OverFlowBox from "../OverFlowBox/OverFlowBox";
 import DataTable from "../DataTable/DataTable";
 export default function Clients() {
-  // return (
-  //   <DataTable
-  //     menuCollapse={menuCollapse}
-  //     menuIconClick={menuIconClick}
-  //     handleToggleSidebar={handleToggleSidebar}
-  //     menuToggle={menuToggle}
-  //   />
-  // );
+
   const [menuCollapse, setMenuCollapse] = useState(false);
   const menuIconClick = () => {
     menuCollapse ? setMenuCollapse(false) : setMenuCollapse(true);
@@ -36,7 +29,7 @@ export default function Clients() {
           {!menuCollapse ? (
             <div
               className="col-md-10 right__content"
-              style={{ transform: "translate(-8%,-1.5%)" }}
+              style={{ transform: "translate(-8%,-1%)" }}
             >
               <header>
                 <HeaderBox
@@ -57,7 +50,7 @@ export default function Clients() {
           ) : (
             <div
               className="col-md-11 right__content"
-              style={{ transform: "translate(-2%,-4%)" }}
+              style={{ transform: "translate(-2%,-3.7%)" }}
             >
               <header>
                 <HeaderBox

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { FaPlus } from "react-icons/fa6";
 import { Formik, Field } from "formik";
 import * as Yup from "yup";
@@ -10,15 +10,13 @@ import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import { BASEURL } from "../../../constans/index.js";
 import { BsPerson } from "react-icons/bs";
+import { clientsContext } from "../Context/ClientsContext.jsx";
 export default function AddNewClient() {
+  const { handleFileChange } = useContext(clientsContext);
+  const { imagePreview } = useContext(clientsContext);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  // change fileStyle
-  const [fileName, setFileName] = useState("");
-  const [imageFile, setImageFile] = useState(null);
-  const [previewUrl, setPreviewUrl] = useState(null); // To store the preview image
-  const [imagePreview, setImagePreview] = useState(null); // To store the preview image
   // Set the initial state for the selected radio button
   const [selectedOption, setSelectedOption] = useState("option2");
   // Handle change when a radio button is selected
@@ -50,29 +48,7 @@ export default function AddNewClient() {
     email: Yup.string().email("Invalid email").required("Required"),
   });
   // Handle the file input change
-  const handleFileChange = (event, setFieldValue) => {
-    const file = event.target.files[0];
 
-    if (file) {
-      const fileType = file.type.split("/")[0]; // Check if file is an image
-      if (fileType !== "image") {
-        alert("Please upload a valid image file.");
-        return;
-      }
-
-      setFileName(file.name); // Update file name for display
-      setImageFile(file); // Set the image file
-      setFieldValue("image", file); // Set file in Formik's state
-      const previewUrl = URL.createObjectURL(file);
-      setImagePreview(previewUrl);
-      // Generate preview for image
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreviewUrl(reader.result); // Set the preview URL once loaded
-      };
-      reader.readAsDataURL(file); // Read the image file as a data URL
-    }
-  };
   // send data to backend
   const handleSubmit = async (values) => {
     if (!values.image) {

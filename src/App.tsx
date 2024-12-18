@@ -13,6 +13,7 @@ import ProtectedRoute from "./Components/PrivetRoutes/PrivetRoutes.js";
 import Employee from "./Components/Employee/Employee.js";
 import Blog from "./Components/Blog/Blog.js";
 import Workers from "./Components/Workers/Workers.js";
+import Contact from "./Components/Contact us/Contact.js";
 const routes = createBrowserRouter([
   {
     path: "/",
@@ -59,6 +60,14 @@ const routes = createBrowserRouter([
         element: (
           <ProtectedRoute>
          <Workers />
+        </ProtectedRoute>
+        ),
+      },
+      {
+        path: "Contact",
+        element: (
+          <ProtectedRoute>
+         <Contact />
         </ProtectedRoute>
         ),
       },

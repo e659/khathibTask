@@ -14,6 +14,7 @@ import { TbDatabase } from "react-icons/tb";
 import { MdKeyboardArrowLeft } from "react-icons/md";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { GrUserWorker } from "react-icons/gr";
+import { LuContactRound } from "react-icons/lu";
 function SideBar({
   menuCollapse,
   menuIconClick,
@@ -22,16 +23,7 @@ function SideBar({
 }) {
   // useContext
   const { userData } = useContext(userContext);
-  // sidebar functions
-  // const [menuCollapse, setMenuCollapse] = useState(false);
-  // const menuIconClick = () => {
-  //   menuCollapse ? setMenuCollapse(false) : setMenuCollapse(true);
-  // };
-  // const [menuToggle, setMenuToggle] = useState(false);
 
-  // const handleToggleSidebar = (value: any) => {
-  //   setMenuToggle(value);
-  // };
   return (
     <div>
       {!menuCollapse ? (
@@ -99,12 +91,17 @@ function SideBar({
                 to={"/Workers"}
                 className={`({ isActive }) => (isActive ? "active" : "") my-4`}
               >
-                <GrUserWorker  size={25} className="mx-2" />
+                <GrUserWorker size={25} className="mx-2" />
                 Workers
               </NavLink>
+              <NavLink
+                to={"/Contact"}
+                className={`({ isActive }) => (isActive ? "active" : "") `}
+              >
+                <LuContactRound size={25} className="mx-2" />
+                Contact Us
+              </NavLink>
             </nav>
-
-          
           </Menu>
         ) : (
           <Menu>
@@ -113,31 +110,53 @@ function SideBar({
                 to={"/Employee"}
                 className={`({ isActive }) => (isActive ? "active" : "") mt-4`}
               >
-                <MdPerson3 size={25} className="mx-2" style={{ transform: "translatex(20%)" }} />
-               
+                <MdPerson3
+                  size={25}
+                  className="mx-2"
+                  style={{ transform: "translatex(20%)" }}
+                />
               </NavLink>
 
               <NavLink
                 to={"/Clients"}
                 className={`({ isActive }) => (isActive ? "active" : "") my-4`}
               >
-                <MdSupervisorAccount size={28} className="mx-2" style={{ transform: "translatex(-9%)" }}/>
-              
+                <MdSupervisorAccount
+                  size={28}
+                  className="mx-2"
+                  style={{ transform: "translatex(-9%)" }}
+                />
               </NavLink>
 
               <NavLink
                 to={"/Blog"}
                 className={({ isActive }) => (isActive ? "active" : "")}
               >
-                <TbDatabase size={25} className="mx-2" style={{ transform: "translatex(20%)" }}/>
-               
+                <TbDatabase
+                  size={25}
+                  className="mx-2"
+                  style={{ transform: "translatex(20%)" }}
+                />
               </NavLink>
               <NavLink
                 to={"/Workers"}
                 className={`({ isActive }) => (isActive ? "active" : "") my-4`}
               >
-                <GrUserWorker  size={25} className="mx-2" style={{ transform: "translatex(20%)" }}/>
-               
+                <GrUserWorker
+                  size={25}
+                  className="mx-2"
+                  style={{ transform: "translatex(20%)" }}
+                />
+              </NavLink>
+              <NavLink
+                to={"/Contact"}
+                className={`({ isActive }) => (isActive ? "active" : "") `}
+              >
+                <LuContactRound
+                  size={25}
+                  className="mx-2"
+                  style={{ transform: "translatex(20%)" }}
+                />
               </NavLink>
             </nav>
 
